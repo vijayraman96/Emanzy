@@ -1,0 +1,97 @@
+/* Checkbox container */
+@import '../../../assets/cssModules/color.scss';
+@import '../../../assets/cssModules/sizes.scss';
+
+.checkContainer {
+  margin: 1.5rem 0.5rem;
+  .checkbox-container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    font-size: 16px;
+  
+    label {
+      color: $grey_2d2c4a;
+      font-family: "Inter", sans-serif;
+      font-size: $fs_12;
+      line-height: $lh_26;
+    }
+  
+    input {
+      position: absolute;
+      opacity: 0;
+    }
+  
+    .checkmark {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 20px;
+      width: 20px;
+      background-color: #fff;
+      border: 2px solid $primaryColor;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 3px;
+      overflow: hidden;
+      cursor: pointer;
+  
+      svg {
+        color: $primaryColor;
+        width: 20px;
+        height: 20px;
+      }
+  
+      &:checked {
+        :checked~.checkmark {
+          background-color: #cecef6;
+          color: $primaryColor;
+        }
+      }
+    }
+  
+    input:checked~.checkmark {
+      background-color: #cecef6;
+      color: $primaryColor;
+    }
+  
+    &:hover {
+      input~.checkmark {
+        background-color: #ccc;
+      }
+    }
+  }
+  
+  .errorDivVis {
+    p {
+      font-size: $fs_12;
+      color: $error_text;
+      line-height: 15px;;
+    }
+  }
+  
+  /* Hide the default checkbox */
+  /* Create a custom checkbox */
+  
+  
+  /* On mouse-over, add a grey background color */
+  .checkbox-container:hover
+  
+  /* When the checkbox is checked, add a blue background */
+  .checkbox-container input:checked~.checkmark {
+    background-color: #2196F3;
+    color: white;
+  }
+  
+  /* Style the checkmark */
+  .checkmark {
+    color: transparent;
+    font-size: 25px;
+  }
+  
+  /* Show the checkmark when checked */
+  .checkbox-container input:checked~.checkmark {
+    color: white;
+  }
+}

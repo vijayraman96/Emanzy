@@ -1,0 +1,31 @@
+@import '../../../assets/cssModules/color.scss';
+@import '../../../assets/cssModules/sizes.scss';
+.button {
+    height: 0px;
+    border-radius: 5px;
+    background-color: $primaryColor;
+    position: relative;
+    height: 50px;
+    padding: 10px 0;
+    vertical-align: middle;
+    width: 100%;
+    cursor: pointer;
+    &:hover {
+        background-color: $primaryColorOpa_05;
+    }
+    .icon_block {
+        position:absolute;
+        top: 0;
+        left: 0;
+        width: 20%;
+        height: auto;
+    }
+    p {
+        color: $white;
+        font-size: $fs_16;
+        font-family: $fontFamily;
+        font-weight: $fw_400;
+        line-height: $lh_26;
+        text-align: center;
+    }
+}
