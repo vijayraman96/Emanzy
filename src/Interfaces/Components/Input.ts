@@ -18,7 +18,9 @@ export interface InputInterface {
     iconStyle?: string,
     onBlur: (event: React.FocusEvent<HTMLInputElement>) => void,
     name?: string,
-    selectName?: string
+    selectName?: string,
+    rightText?: string,
+    link?: string
 }
 
 export enum inputType {

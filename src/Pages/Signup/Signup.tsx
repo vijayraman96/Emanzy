@@ -1,16 +1,19 @@
 import React, { FormEvent, useState, useEffect } from "react";
-import Input from "../Components/Input/Input";
-import { inputType } from "../Interfaces/Components/Input";
+import axios, { Axios } from "axios";
+import './Signup.scss';
+import Images from "../../assets/images/images";
+import Input from "../../Components/Input/Input";
+import { inputType } from "../../Interfaces/Components/Input";
 import { UilUser } from "@iconscout/react-unicons";
 import { UilEyeSlash } from "@iconscout/react-unicons";
 import { UilEye } from "@iconscout/react-unicons";
 import { UilEnvelope } from "@iconscout/react-unicons";
 import { UilLock } from "@iconscout/react-unicons";
 import { UilCheck } from "@iconscout/react-unicons";
-import { Button } from "../Components/button/Button";
+import { Button } from "../../Components/button/Button";
 import * as Yup from "yup";
-import { useDispatch } from "react-redux";
-import { fetchData } from "../Action/Signup";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchData } from "../../Action/Signup";
 import {
   Formik,
   FormikHelpers,
@@ -19,14 +22,16 @@ import {
   Field,
   FieldProps,
 } from "formik";
-import { frontendAxiosUrl } from "../axiosConfig";
-import axios, { Axios } from "axios";
-import DropdownInput from "../Components/Input/DropdownInput";
-import Checkbox from "../Components/Checkbox/Checkbox";
+import { useNavigate } from "react-router-dom";
+import { frontendAxiosUrl } from "../../axiosConfig";
+import DropdownInput from "../../Components/Input/DropdownInput";
+import Checkbox from "../../Components/Checkbox/Checkbox";
+import { RootState } from "../../Reducers/RootReducers";
 
 const Signup = () => {
   const dispatch = useDispatch<any>();
-  useEffect(() => {});
+  const navigate = useNavigate();
+  const userName = useSelector((state: RootState) => state.SignupReducer);
   const [formValues, setFormValues] = useState("");
   const [dropDownOptions, setDropDownOptions] = useState([
     { value: "", label: "Choose Role" },
@@ -36,9 +41,16 @@ const Signup = () => {
     { value: "Submanager", label: "Submanager" },
     { value: "Worker", label: "Worker" },
   ]);
+  useEffect(() => {
+    let userDetails = localStorage.getItem('user');
+   if(userDetails && Object.keys(userDetails as {}).length > 0) {
+      navigate('/signin');
+   } 
+
+  }, []);
   return (
     <div className="max-w-[1200px] mx-auto items-center">
-      <div className="flex items-center h-screen" >
+      <div className="flex items-center h-screen gap-20" >
         <div className="w-7/12">
         <Formik
           initialValues={{
@@ -55,26 +67,20 @@ const Signup = () => {
             values: FormValues,
             { setSubmitting }: FormikHelpers<FormValues>
           ) => {
-            console.log("values", values);
             try {
               if (values.termsOfService) {
-                let finalValues = {...values, role: values.role.value }
-                console.log("process", process.env.REACT_APP_FRONT_BACK_URL);
-                const data = await frontendAxiosUrl.get("/date");
-                console.log("ssdcd", JSON.stringify(data));
-                dispatch(fetchData(finalValues));
-                localStorage.setItem("myCat", JSON.stringify(finalValues));
+                let finalValues = {...values, role: values.role.value, email: values.email.toLowerCase() }
+                const signupSuccess = await dispatch(fetchData(finalValues));
+                if(signupSuccess?.email) {
+                  localStorage.setItem("user", JSON.stringify(finalValues));
+                  navigate('/signin');
+                }
               } else {
                 console.log("not submitted");
               }
             } catch (error) {
               console.log("error", error);
             }
-            setTimeout(() => {
-              // alert(JSON.stringify(values, null, 2));
-              localStorage.setItem("myCat", JSON.stringify(values));
-              setSubmitting(false);
-            }, 500);
           }}
           validationSchema={Yup.object().shape({
             firstName: Yup.string().required("First Name is required"),
@@ -267,7 +273,7 @@ const Signup = () => {
                   type="submit"
                   disabled={!values.termsOfService || isSubmitting}
                 />
-                <p className="text-center">Already have an account? <span>Sign Up</span></p>
+                <p className="text-center">Already have an account? <span className="sign_in" onClick={() => navigate('/signin')}>Sign In</span></p>
               </form>
             );
           }}
@@ -275,7 +281,9 @@ const Signup = () => {
           
         </div>
           <div className="w-5/12">
-            <p>mlncjldn</p>
+            <div className="blue_box flex items-center">
+              <img src={Images.signup_banner} alt="" />
+            </div>
           </div>
       </div>
      

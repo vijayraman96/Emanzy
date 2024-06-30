@@ -2,6 +2,7 @@ import React, { forwardRef, useState } from "react";
 import { InputInterface } from "../../Interfaces/Components/Input";
 import { IconComponent } from "@iconscout/react-unicons";
 import "./input.scss";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const Input = forwardRef<HTMLInputElement, InputInterface>(
   (
@@ -22,12 +23,15 @@ const Input = forwardRef<HTMLInputElement, InputInterface>(
       password,
       iconStyle,
       onBlur,
-      name
+      name,
+      rightText,
+      link
     },
     ref
   ) => {
     const [visible, setVisible] = useState(false);
     const [textType, setTextType] = useState(type);
+    const navigate = useNavigate();
     return (
       <div className="inputDiv my-3 mx-2">
         <label className={`labelElement font-semibold ${labelStyle}`}>
@@ -69,10 +73,14 @@ const Input = forwardRef<HTMLInputElement, InputInterface>(
               {rightIcon}
             </div>
           )}
+          <div className={link === "" ? "disp_none" : "rightText"}>
+          <p onClick={() => navigate(`/${link}`)}>{rightText}</p>
+        </div>
         </div>
         <div className={error === "" ? "disp_none" : "errorDivVis"}>
           <p>{error}</p>
         </div>
+        
       </div>
     );
   }

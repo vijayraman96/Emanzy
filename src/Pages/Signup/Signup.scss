@@ -1,0 +1,14 @@
+@import './../../assets/cssModules/color.scss';
+@import './../../assets/cssModules/sizes.scss';
+
+.blue_box {
+    background-color: $primaryColor;
+    height: 550px;
+    border-radius: 30px;
+}
+.sign_in {
+    color: $primaryColor;
+    text-decoration: underline;
+    font-weight: $fw_500;
+    cursor: pointer;
+}

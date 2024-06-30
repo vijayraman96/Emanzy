@@ -1,9 +1,10 @@
-@import "../../../assets/cssModules/color.scss";
-@import "../../../assets/cssModules/sizes.scss";
+@import "./../../assets/cssModules/color.scss";
+@import "./../../assets/cssModules/sizes.scss";
 .disp_none {
   display: none;
 }
 .inputDiv {
+  position: relative;
   .labelElement {
     font-family: "Inter", sans-serif;
   }
@@ -105,11 +106,25 @@
         // height: 20px;
       }
     }
+    .rightText {
+      position: absolute;
+      bottom: -26px;
+      right: 0;
+      p {
+      color: $primaryColor;
+      font-size: $fs_16;
+      line-height: $lh_22;
+      cursor: pointer;
+      font-weight: $fw_500;
+      }
+    }
   }
+  
   .errorDivVis {
     p {
       font-size: $fs_12;
       color: $error_text;
+      width: 350px;
     }
   }
 }

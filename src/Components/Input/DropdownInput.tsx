@@ -30,13 +30,10 @@ const DropdownInput = forwardRef<HTMLInputElement, DropdownInterface>(
     const [isDisabled, setIsDisabled] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [data, setData] = useState<Choices[]>(options);
-    console.log("meta", meta, 'helpers', helpers);
 
 
     const handleChange = (selectedOption: any) => {
-        console.log('selectedOption', selectedOption);
         if(selectName) {
-            console.log('selectName', selectName);
             setFieldValue(selectName, selectedOption);
         }
       };
@@ -55,7 +52,6 @@ const DropdownInput = forwardRef<HTMLInputElement, DropdownInterface>(
           {...field}
             onBlur={() => helpers.setTouched(true)}
             onChange={(option) => {
-              console.log('option', option);
               setFieldValue(selectName || "" , option); // Update the form field value in Formik
               helpers.setValue(option); // Update the value of the Select component
             }}

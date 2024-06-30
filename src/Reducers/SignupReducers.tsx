@@ -1,17 +1,25 @@
 import { SIGNUP_DATA_FAILURE, SIGNUP_DATA_REQUEST, SIGNUP_DATA_SUCCESS } from "../Action/Constant";
+import { FetchDataAction } from "../Action/Signup";
+interface SignupState {
+  data: any;
+  error?: Error | null;
+}
 
-const initialState = {}
-export const SignupReducer = (state = initialState, action: { type: any; }) => {
+const initialState: SignupState = {
+  data: null,
+  error: null
+};
+export const SignupReducer = (state = initialState, action: FetchDataAction): SignupState => {
     switch (action.type) {
       case SIGNUP_DATA_REQUEST:
-        console.log('fetch');
         return state;
       case SIGNUP_DATA_SUCCESS:
-        console.log('success');
-        return state;
+        return {...state, data: action.payload};
       case SIGNUP_DATA_FAILURE:
-        console.log('failure');
-        return state;
+        return {
+          ...state,
+          error: action.error
+        };
       default:
         return state;
     }

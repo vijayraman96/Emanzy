@@ -1,8 +1,8 @@
-import { applyMiddleware, createStore } from "redux";
+import { applyMiddleware, legacy_createStore as createStore } from "redux";
 import  { thunk, ThunkMiddleware } from 'redux-thunk';
-import rootReducer, {RootState} from "../Reducers/RootReducers";
+import RootReducer, {RootState} from "../Reducers/RootReducers";
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk as unknown as ThunkMiddleware<RootState>)));
+const store = createStore(RootReducer,composeWithDevTools(applyMiddleware(thunk as ThunkMiddleware<RootState>)));
 
 export default store;
