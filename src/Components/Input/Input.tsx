@@ -60,7 +60,7 @@ const Input = forwardRef<HTMLInputElement, InputInterface>(
                 rightIcon !== undefined ? `rightIconDiv pwdColor` : "disp_none"
               }
             >
-              {visible === false ? (
+              {!visible ? (
                 <div onClick={() => {setVisible(true); setTextType('text')}}>{passwordIcon}</div>
               ) : (
                 <div onClick={() => {setVisible(false); setTextType('password')}}>{rightIcon}</div>

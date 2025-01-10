@@ -50,8 +50,9 @@ export const fetchData = (values: any): ThunkAction<
         const finalData = data.data;
         dispatch({ type: SIGNUP_DATA_SUCCESS, payload: finalData });
         return finalData;
-      } catch (error:any) {
-        toast.error(error?.response?.data?.error || error);
+      } catch (error) {
+        const errorMessgae = error instanceof Error ?  error.message : (error as any)?.response?.data?.error || "An unknown error occurred";
+        toast.error(errorMessgae);
         dispatch({ type: SIGNUP_DATA_FAILURE, error: "the redux is failed" });
         return error;
       }

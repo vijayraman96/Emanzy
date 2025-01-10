@@ -27,6 +27,8 @@ import { frontendAxiosUrl } from "../../axiosConfig";
 import DropdownInput from "../../Components/Input/DropdownInput";
 import Checkbox from "../../Components/Checkbox/Checkbox";
 import { RootState } from "../../Reducers/RootReducers";
+import { FormValues } from "../../Interfaces/Components/Signup";
+import Routes from "../../Routes";
 
 const Signup = () => {
   const dispatch = useDispatch<any>();
@@ -41,6 +43,7 @@ const Signup = () => {
     { value: "Submanager", label: "Submanager" },
     { value: "Worker", label: "Worker" },
   ]);
+
   useEffect(() => {
     let userDetails = localStorage.getItem('user');
    if(userDetails && Object.keys(userDetails as {}).length > 0) {

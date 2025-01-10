@@ -1,5 +1,5 @@
 
-interface FormValues {
+export interface FormValues {
     firstName: string,
     lastName: string,
     userName: string,
@@ -9,13 +9,13 @@ interface FormValues {
     confirmPassword: string;
     termsOfService: boolean;
 }
-interface MyFormProps {
+export interface MyFormProps {
     initialFName?: string;
     initialLName?: string;
     initialEmail?: string;
     initialPassword?: string;
     initialConfirmPassword?: string;
 }
-interface OtherProps {
+export interface OtherProps {
     title?: string;
 }

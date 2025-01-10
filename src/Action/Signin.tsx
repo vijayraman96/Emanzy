@@ -7,9 +7,7 @@ import {
   SIGNIN_DATA_FAILURE
   } from './Constant';
 import { frontendAxiosUrl } from '../axiosConfig';
-import { AxiosError } from 'axios';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
 
   interface SigninDataRequestAction {
     type: typeof SIGNIN_DATA_REQUEST;
@@ -52,8 +50,10 @@ export const SignInAction = (values: any): ThunkAction<
         dispatch({ type: SIGNIN_DATA_SUCCESS, payload: finalData });
         let token = localStorage.setItem('token', finalData);
         return finalData;
-      } catch (error:any) {
-        toast.error(error?.response?.data?.error || error);
+      } catch (error) {
+
+        const errorMessgae = error instanceof Error ?  error.message : (error as any)?.response?.data?.error || "An unknown error occurred";
+        toast.error(errorMessgae);
         dispatch({ type: SIGNIN_DATA_FAILURE, error: "the Signin is failed" });
         return error;
       }

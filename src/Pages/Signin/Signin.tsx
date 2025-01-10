@@ -11,21 +11,45 @@ import * as Yup from "yup";
 import { useNavigate } from 'react-router-dom';
 import './Signin.scss'
 import { SignInAction } from '../../Action/Signin';
-import { UseDispatch } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
+import { SigninValues } from '../../Interfaces/Components/Signin';
+import Routes from '../../Routes';
 
 const Signin = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch<any>();
     const signUpNavigation = () => {
       let user = localStorage.getItem('user');
-      if( Object.keys(user as {}).length === 0) {
+      console.log('user', user);
+      
+      if( !user || Object.keys(user as {}).length === 0) {
         navigate('/signup');
       } else {
         toast.error("You have already Signed Up your account. So please login");
       }
     }
+
+
+    useEffect(() => {
+      console.log("vijay");
+      const tokenValidation = async() =>{
+        try {
+          const response: any = await frontendAxiosUrl.get('/authenticated');
+          console.log('response', response);
+          let tokenMatch = localStorage.getItem('token');
+          if(tokenMatch === response?.token) {
+            navigate('/dashboard');
+          } else {
+            navigate('/signin');
+          }
+         
+        } catch (error) {
+          navigate('/signin');
+        }
+      }
+      tokenValidation();
+    }, [Routes])
     return (
         <div className="max-w-[1200px] mx-auto items-center">
           <div className="flex items-center h-screen gap-20" >
